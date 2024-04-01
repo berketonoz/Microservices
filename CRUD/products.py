@@ -11,6 +11,17 @@ products = [
     {'id': 144, 'name': 'Black Marker', 'price': 1.99}
 ]
 
-# HTTP Methods
+@app.route('/products', methods=["GET"])
+def get_products():
+    return jsonify(products)
+
+@app.route('/products/<id>', methods=["GET"])
+def get_product(id):
+    product =  [ p for p in products if p['id'] == int(id)]
+    if len(product) > 0:
+        product = product[0]
+        return product
+    return '', 404
+
 
 app.run(port=5000,debug=True)
