@@ -31,5 +31,17 @@ def add_product():
         return '', 400
     return '', 201
 
+@app.route('/products/<id>', methods=["PUT"])
+def update_product(id):
+    updated_product = request.get_json()
+    product = [ p for p in products if p['id'] == int(id)]
+    if len(product) > 0:
+        product = product[0]
+        for k in updated_product.keys(): 
+            product[k] = updated_product[k]
+        return product, 200
+    return '', 204
+
+
 
 app.run(port=5000,debug=True)
