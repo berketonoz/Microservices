@@ -42,6 +42,15 @@ def update_product(id):
         return product, 200
     return '', 204
 
-
+@app.route('/products/<id>', methods=["DELETE"])
+def delete_product(id):
+    product = [ p for p in products if p['id'] == int(id)]
+    if len(product) > 0:
+        product = product[0]
+        try:
+            products.remove(product)
+        except:
+            return '', 400
+    return '', 200
 
 app.run(port=5000,debug=True)
