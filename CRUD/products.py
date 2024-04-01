@@ -23,5 +23,13 @@ def get_product(id):
         return product
     return '', 404
 
+@app.route('/products', methods=["POST"])
+def add_product():
+    try:
+        products.append(request.get_json())
+    except:
+        return '', 400
+    return '', 201
+
 
 app.run(port=5000,debug=True)
