@@ -1,70 +1,119 @@
-# Microservices
 
-This repository contains a microservices-based project, showcasing various services interacting to form a cohesive application. It serves as an example of implementing a microservices architecture using modern technologies.
+# Product Server
 
-## Table of Contents
+A simple Flask-based API for managing a list of products. This project demonstrates basic CRUD (Create, Read, Update, Delete) operations with a RESTful API.
 
-- [About](#about)
-- [Technologies Used](#technologies-used)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+## Features
 
-## About
+- Retrieve a list of products
+- Retrieve a specific product by ID
+- Add a new product
+- Update an existing product
 
-The Microservices project demonstrates the creation and interaction of multiple independent services. Each service is responsible for a specific functionality and communicates with other services via APIs.
+## Endpoints
 
-## Technologies Used
+### GET /products
 
-- **Services:**
-  - Python (Flask)
-- **Database:**
-  - SQLite
-- **Containerization:**
-  - Docker
+Retrieves the list of all products.
 
-## Setup
+**Response:**
+```json
+[
+    {
+        "id": 143,
+        "name": "Notebook",
+        "price": 5.49
+    },
+    {
+        "id": 144,
+        "name": "Black Marker",
+        "price": 1.99
+    }
+]
+```
 
-To set up this project locally, follow these steps:
+### GET /products/<id>
+
+Retrieves a specific product by its ID.
+
+**Response:**
+```json
+{
+    "id": 143,
+    "name": "Notebook",
+    "price": 5.49
+}
+```
+
+### POST /products
+
+Adds a new product to the list.
+
+**Request Body:**
+```json
+{
+    "id": 145,
+    "name": "Pen",
+    "price": 0.99
+}
+```
+
+**Response:**
+- Status: `201 Created` if the product is successfully added.
+- Status: `400 Bad Request` if there is an error in the request.
+
+### PUT /products/<id>
+
+Updates an existing product by its ID.
+
+**Request Body:**
+```json
+{
+    "name": "Updated Product Name",
+    "price": 2.99
+}
+```
+
+**Response:**
+- Status: `200 OK` if the product is successfully updated.
+- Status: `404 Not Found` if the product does not exist.
+
+## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/berketonoz/Microservices.git
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd Microservices
-    ```
-3. Build and run the Docker containers:
-    ```bash
-    docker-compose up --build
+    ```sh
+    git clone <repository_url>
+    cd <repository_name>
     ```
 
-## Usage
-
-Each service can be accessed via its respective endpoint. Ensure all services are running before making requests. The services interact to perform operations such as creating, reading, updating, and deleting records.
-
-## Contributing
-
-Contributions are welcome! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch:
-    ```bash
-    git checkout -b feature-branch
+2. Create a virtual environment:
+    ```sh
+    python3 -m venv venv
+    source venv/bin/activate
     ```
-3. Make your changes and commit them:
-    ```bash
-    git commit -m "Description of the feature"
+
+3. Install the dependencies:
+    ```sh
+    pip install -r requirements.txt
     ```
-4. Push to the branch:
-    ```bash
-    git push origin feature-branch
+
+4. Run the application:
+    ```sh
+    python products.py
     ```
-5. Open a pull request describing your changes.
+
+5. Access the API at `http://127.0.0.1:5000`
+
+## Dependencies
+
+- Flask
+- Flask-CORS
 
 ## License
 
-This project is licensed under the Apache-2.0 License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Acknowledgments
+
+- [Flask](https://flask.palletsprojects.com/) - The web framework used
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/) - Handling Cross-Origin Resource Sharing (CORS)
